@@ -20,6 +20,7 @@ node {
 
         app.inside {
             sh 'echo "Tests passed"'
+            sh 'mvn clean compile '
         }
     }
     stage('Push image') {
