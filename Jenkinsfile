@@ -12,14 +12,15 @@ node {
          * docker build on the command line */
         docker.withServer('tcp://54.163.97.104:4243') {
             app = docker.build("premsai26/maven-sample")
+            app.inside {
+            sh 'mvn clean compile'
+        }
       }
     }
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
-        app.inside {
-            sh 'mvn clean compile'
-        }
+       
     }
  }
