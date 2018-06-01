@@ -13,7 +13,7 @@ node {
         docker.withServer('tcp://54.163.97.104:4243') {
             app = docker.build("premsai26/maven-sample")
             app.inside {
-            sh 'clean compile'
+            sh 'uname -a'
         }
       }
     }
