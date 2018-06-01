@@ -11,8 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         docker.withServer('tcp://54.163.97.104:4243') {
-            app = docker.build("premsai26/maven-sample")
-            app.inside {
+          docker.build("premsai26/maven-sample").inside {
             sh 'uname -a'
         }
       }
