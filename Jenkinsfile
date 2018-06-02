@@ -1,22 +1,21 @@
 pipeline {
-    agent none
-    stage ('Checkout') {
-        agent any
-        steps {
-            git(
-                url: 'https://github.com/premsai26/maven-sample.git'
-            )
-        }
+   agent {
+    dockerfile {
+      filename "Dockerfile"
+      label "docker-nodes"
+      args "-v /tmp:/tmp"
     }
-    stage ('Build') {
-        agent {
-            dockerfile {
-            filename 'Dockerfile'
-        }
-        steps {
-            sh ' uname-a'
-        }
-}
-    }
-   
-}
+  }
+ stages {
+ stage('Checkout') {
+ steps {
+ checkout scm
+ }
+ }
+ stage('Build') {
+ steps {
+ sh "mvn clean compile"
+ }
+ }
+ }
+}  
