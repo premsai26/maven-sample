@@ -38,7 +38,7 @@ RUN chmod 600 /home/jenkins/.ssh/authorized_keys
 RUN chmod 700 /home/jenkins/.ssh
 RUN mkdir  /var/lib/jenkins/
 RUN chown -R jenkins:jenkins /var/lib/jenkins/
-WORKDIR /home/jenkins
+
 
 # Add the jenkins user to sudoers
 RUN echo "jenkins    ALL=(ALL)    ALL" >> etc/sudoers
@@ -49,3 +49,4 @@ COPY resolv.conf /etc/resolv.conf
 # Expose SSH port and run SSHD
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
+WORKDIR /home/jenkins
