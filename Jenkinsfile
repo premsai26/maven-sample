@@ -1,4 +1,8 @@
 node {
+    agent {
+    dockerfile {
+    }
+}
     def app
 
     stage('Clone repository') {
@@ -13,9 +17,7 @@ node {
         docker.withServer('tcp://18.208.149.17:4243') {
             app = docker.build("premsai26/maven-sample")
             app.inside {
-            git 'https://github.com/premsai26/maven-sample.git'
-            sh"git 'https://github.com/premsai26/maven-sample.git'"
-            sh " mvn clean compile"
+            
             sh " uname -a "
         }
       }
