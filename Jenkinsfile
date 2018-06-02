@@ -1,11 +1,22 @@
 pipeline {
-    agent { dockerfile true }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
-                sh 'mvn --version'
-            }
+    agent none
+    stage ('Checkout') {
+        agent any
+        steps {
+            git(
+                url: 'https://github.com/premsai26/maven-sample.git'
+            )
         }
     }
+    stage ('Build') {
+        agent {
+            dockerfile {
+            filename 'Dockerfile'
+        }
+        steps {
+            sh ' uname-a'
+        }
+}
+    }
+   
 }
