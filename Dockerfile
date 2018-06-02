@@ -40,6 +40,14 @@ RUN chmod 700 /home/jenkins/.ssh
 
 # Add the jenkins user to sudoers
 RUN echo "jenkins    ALL=(ALL)    ALL" >> etc/sudoers
+WORKDIR /home/jenkins/
+VOLUME ["/home/jenkins", "/var/jenkins_home"]
+
+USER jenkins
+
+
+
+
 
 # Set Name Servers
 COPY resolv.conf /etc/resolv.conf
@@ -48,5 +56,4 @@ COPY resolv.conf /etc/resolv.conf
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
 
-WORKDIR /home/jenkins/
-USER jenkins
+
