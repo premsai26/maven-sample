@@ -43,10 +43,10 @@ RUN echo "jenkins    ALL=(ALL)    ALL" >> etc/sudoers
 
 # Set Name Servers
 COPY resolv.conf /etc/resolv.conf
-RUN mkdir -p /var/lib/jenkins/workspace/
-RUN chown -R jenkins:jenkins /var/lib/jenkins/workspace/
+
 # Expose SSH port and run SSHD
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
 
-WORKDIR /var/lib/jenkins/workspace/
+WORKDIR /home/jenkins/
+USER jenkins
