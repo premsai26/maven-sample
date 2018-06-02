@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         docker.withServer('tcp://54.165.49.142:4243') {
-            app = docker.build("premsai26/maven-sample","--build-arg -v /var/lib/jenkins/:/home/jenkins")
+            app = docker.build("premsai26/maven-sample","--build-arg -v /var/lib/jenkins/=/home/jenkins")
             app.inside {
             sh 'pwd'
         }
