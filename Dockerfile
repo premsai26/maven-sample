@@ -9,8 +9,7 @@ RUN apt-get install -y git
 RUN apt-get install -y openssh-server
 RUN sed -i 's|session    required     pam_loginuid.so|session    optional     pam_loginuid.so|g' /etc/pam.d/sshd
 RUN mkdir -p /var/run/sshd
-RUN mkdir -p /var/lib/jenkins/workspace/
-RUN chown -R jenkins:jenkins /var/lib/jenkins/workspace/
+
 
 # Install JDK 7 (latest edition)
 RUN apt-get install -y openjdk-8-jdk
@@ -44,7 +43,8 @@ RUN echo "jenkins    ALL=(ALL)    ALL" >> etc/sudoers
 
 # Set Name Servers
 COPY resolv.conf /etc/resolv.conf
-
+RUN mkdir -p /var/lib/jenkins/workspace/
+RUN chown -R jenkins:jenkins /var/lib/jenkins/workspace/
 # Expose SSH port and run SSHD
 EXPOSE 22
 CMD ["/usr/sbin/sshd","-D"]
