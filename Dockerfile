@@ -41,7 +41,7 @@ RUN chmod 700 /home/jenkins/.ssh
 # Add the jenkins user to sudoers
 RUN echo "jenkins    ALL=(ALL)    ALL" >> etc/sudoers
 WORKDIR /home/jenkins/
-VOLUME ["/home/jenkins", "/var/jenkins_home"]
+VOLUME ["/home/jenkins", "/var/lib/jenkins/workspace"]
 
 USER jenkins
 
