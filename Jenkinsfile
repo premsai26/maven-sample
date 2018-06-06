@@ -15,7 +15,7 @@ node {
             app.pull()
             checkout scm
        stage(‘Build’) {
-      sh ‘docker run — privileged -t -v $(pwd):/go/src/git.example.com/group/registrysync -w /go/src/git.example.com/group/registrysync group/go-builder-base-image:master bash -c “go get && go build”’
+      sh ‘docker run — privileged -t -v $(pwd):/home/jenkins  -w /go/src/git.example.com/group/registrysync group/go-builder-base-image:master bash -c “go get && go build”’
         }
       }
     }
