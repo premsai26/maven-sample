@@ -10,7 +10,7 @@ node {
             }
         }
         steps {
-            sh 'make test''
+            sh 'make test'
         }
     }
 }
