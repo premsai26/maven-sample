@@ -12,7 +12,8 @@ node {
     dir('webapp') {
         docker.withServer('tcp://52.87.126.181:4243') {
       docker.build("premsai26/maven-sample:${env.BUILD_NUMBER}")
-        }}
+        }
+    }
   }
 
     stage('Run Tests') {
@@ -26,5 +27,5 @@ node {
     } finally {
       junit '**/target/surefire-reports/*.xml'
     }
-  
-   }
+    }
+}
