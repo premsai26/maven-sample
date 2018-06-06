@@ -40,8 +40,11 @@ RUN chmod 700 /home/jenkins/.ssh
 
 # Add the jenkins user to sudoers
 RUN echo "jenkins   ALL=(ALL)    NOPASSWD: ALL" >> etc/sudoers
-WORKDIR /home/jenkins/
-VOLUME /home/jenkins/workspace
+
+mkdir -p /var/lib/jenkins/workspace/
+chmod -R 777 /var/lib/jenkins/workspace/
+#WORKDIR /home/jenkins/
+VOLUME /var/lib/jenkins/workspace/
 
 USER jenkins
 
