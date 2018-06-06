@@ -14,7 +14,7 @@ node {
         docker.withServer('tcp://52.87.126.181:4243') {
             app = docker.build("premsai26/maven-sample")
             
-            }}
+       }
       }
     }
      stage('Run Tests') {
