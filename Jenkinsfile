@@ -6,26 +6,28 @@ node {
 
         checkout scm
     }
-    
-    
-     stage('Create Docker Image') {
-    dir('webapp') {
-        docker.withServer('tcp://52.87.126.181:4243') {
-      docker.build("premsai26/maven-sample:${env.BUILD_NUMBER}")
-        }
-    }
-  }
 
-    stage('Run Tests') {
+    stage('Build image') {
+        dir('webapp') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+        docker.withServer('tcp://52.87.126.181:4243') {
+            app = docker.build("premsai26/maven-sample")
+            
+            }}
+      }
+    }
+     stage('Run Tests') {
     try {
       dir('webapp') {
         sh "mvn test"
-        docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}").push()
+        
       }
     } catch (error) {
 
     } finally {
       junit '**/target/surefire-reports/*.xml'
     }
-    }
-}
+  }
+
+ }
