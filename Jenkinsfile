@@ -6,17 +6,25 @@ node {
 
         checkout scm
     }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+    
+    
+     stage('Create Docker Image') {
+    dir('webapp') {
         docker.withServer('tcp://52.87.126.181:4243') {
-            app = docker.build("premsai26/maven-sample")
-            app.pull()
-            checkout scm
-       stage(‘Build’) {
-      sh ‘docker run — privileged -t -v $(pwd):/home/jenkins  -w /go/src/git.example.com/group/registrysync group/go-builder-base-image:master bash -c “go get && go build”’
-        }
+      docker.build("premsai26/maven-sample:${env.BUILD_NUMBER}")
+        }}
+  }
+
+    stage('Run Tests') {
+    try {
+      dir('webapp') {
+        sh "mvn test"
+        docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}").push()
       }
+    } catch (error) {
+
+    } finally {
+      junit '**/target/surefire-reports/*.xml'
     }
+  
    }
